@@ -20,14 +20,14 @@ namespace RecipePWA.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Ingredient>> GetIngredients()
+        public async Task<ActionResult<List<Ingredient>>> GetIngredients()
         {
             var Ingredients = await _context.Ingredients.AsNoTracking().ToListAsync();
             return Ingredients;
         }
 
         [HttpGet("/api/[controller]/{id}")]
-        public async Task<IActionResult> GetIngredient(int id)
+        public async Task<ActionResult<Ingredient>> GetIngredient(int id)
         {
             var Ingredient = await _context.Ingredients.AsNoTracking()
                 .FirstOrDefaultAsync(item => item.Id == id);
@@ -35,7 +35,7 @@ namespace RecipePWA.Controllers
             if (Ingredient == null)
                 return NotFound();
 
-            return Ok(Ingredient);
+            return Ingredient;
         }
     }
 }
