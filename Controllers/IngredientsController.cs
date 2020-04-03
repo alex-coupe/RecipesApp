@@ -26,13 +26,16 @@ namespace RecipePWA.Controllers
             return Ingredients;
         }
 
-        [HttpGet]
-        public async Task<Ingredient> GetIngredient(int id)
+        [HttpGet("/api/[controller]/{id}")]
+        public async Task<IActionResult> GetIngredient(int id)
         {
             var Ingredient = await _context.Ingredients.AsNoTracking()
                 .FirstOrDefaultAsync(item => item.Id == id);
 
-            return Ingredient;
+            if (Ingredient == null)
+                return NotFound();
+
+            return Ok(Ingredient);
         }
     }
 }
