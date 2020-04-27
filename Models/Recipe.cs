@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RecipePWA.Models
+namespace Backend.Models
 {
     public class Recipe
     {

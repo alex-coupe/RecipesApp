@@ -11,9 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using RecipePWA.Models;
+using Microsoft.OpenApi.Models;
+using Backend.Models;
 
-namespace RecipePWA
+namespace Backend
 {
     public class Startup
     {
@@ -29,7 +30,10 @@ namespace RecipePWA
         {
             services.AddDbContext<RecipeContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("RecipesDatabase")));
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recipe API", Version = "v1" });
+            });
             services.AddControllers();
         }
            
@@ -41,8 +45,15 @@ namespace RecipePWA
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
 
             app.UseHttpsRedirection();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recipe API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
