@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Backend.Models;
+using Backend.DataAccess;
 
 namespace Backend
 {
@@ -34,6 +35,7 @@ namespace Backend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recipe API", Version = "v1" });
             });
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddControllers();
         }
            

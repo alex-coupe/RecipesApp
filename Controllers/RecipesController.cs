@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Models;
+using Backend.DataAccess;
 
 namespace Backend.Controllers
 {
@@ -13,17 +14,17 @@ namespace Backend.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        private readonly RecipeContext _context;
-        public RecipesController(RecipeContext dbContext)
+        private readonly IRecipeRepository _repository;
+        public RecipesController(IRecipeRepository repository)
         {
-            _context = dbContext;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
-            var recipes = await _context.Recipes.ToListAsync();
-            return recipes;
+            var recipes = await _repository.GetRecipesAsync();
+            return Ok(recipes);
         }
     }
 }
