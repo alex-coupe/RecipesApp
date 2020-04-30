@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Models;
 using Backend.DataAccess;
-using Backend.DTO;
+
 
 namespace Backend.Controllers
 {
@@ -22,9 +22,17 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RecipeDTO>>> GetRecipes()
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
             var recipes = await _repository.GetRecipesAsync();
+            return Ok(recipes);
+        }
+
+        [HttpGet("{id}")]
+
+        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        {
+            var recipes = await _repository.GetRecipeAsync(id);
             return Ok(recipes);
         }
 

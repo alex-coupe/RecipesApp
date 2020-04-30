@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,11 +8,18 @@ namespace Backend.Models
     public class Recipe
     {
         public int Id { get; set; }
-
-        
+              
 
         [DefaultValue(0)]
         public int Likes { get; set; }
+
+        public string PrepTime { get; set; }
+
+        public int Serves { get; set; }
+
+        public string Difficulty { get; set; }
+
+        public string Description { get; set; }
 
         public string Name { get; set; }
         
@@ -26,5 +34,13 @@ namespace Backend.Models
         
         [Required]
         public string ImageURL { get; set; }
+
+        [Required]
+        public virtual List<Ingredient> Ingredients { get; set; }
+
+        [Required]
+        public virtual List<Method> Instructions { get; set; }
+        [Required]
+        public virtual NutritionalInfo NutritionalInfo { get; set; }
     }
 }

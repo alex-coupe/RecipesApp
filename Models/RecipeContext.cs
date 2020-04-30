@@ -10,11 +10,24 @@ namespace Backend.Models
     {
         public RecipeContext(DbContextOptions<RecipeContext> options)
             : base(options)
-        {}
-
+        { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Recipe>()
+                 .HasMany(c => c.Ingredients);
+            modelBuilder.Entity<Recipe>()
+                .HasMany(c => c.Instructions);
+            modelBuilder.Entity<Recipe>()
+                .HasOne(c => c.NutritionalInfo);
+                
+        }
 
         public DbSet<Ingredient> Ingredients { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<NutritionalInfo> NutritionalInfos {get; set;}
+
+        public DbSet<Method> Instructions { get; set; }
     }
 }

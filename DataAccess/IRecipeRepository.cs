@@ -9,7 +9,7 @@ namespace Backend.DataAccess
     public interface IRecipeRepository : IDisposable
     {
         IEnumerable<Recipe> GetRecipes();
-        Recipe GetRecipe(int id);
+        Task<Recipe> GetRecipeAsync(int id);
         Task<IEnumerable<Recipe>> GetRecipesAsync();
         void AddRecipe(Recipe recipe);
         void DeleteRecipe(int id);

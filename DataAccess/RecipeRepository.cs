@@ -38,17 +38,32 @@ namespace Backend.DataAccess
 
         public IEnumerable<Recipe> GetRecipes()
         {
-            return _context.Recipes.ToList();
+            var recipes = _context.Recipes.AsNoTracking()
+                .Include(i => i.NutritionalInfo)
+                .Include(i => i.Instructions)
+                .Include(i => i.Ingredients);
+            return recipes.ToList();
         }
 
         public async Task<IEnumerable<Recipe>> GetRecipesAsync()
         {
-            return await _context.Recipes.ToListAsync();
+
+            var recipes = _context.Recipes.AsNoTracking()
+                .Include(i => i.NutritionalInfo)
+                .Include(i => i.Instructions)
+                .Include(i => i.Ingredients);
+            return await recipes.ToListAsync();
         }
 
-        public Recipe GetRecipe(int id)
+        public async Task<Recipe> GetRecipeAsync(int id)
         {
-            return _context.Recipes.Find(id);
+            var recipe = await _context.Recipes.AsNoTracking()
+                .Include(i => i.NutritionalInfo)
+                .Include(i => i.Instructions)
+                .Include(i => i.Ingredients)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            return recipe;    
         }
 
         public void AddRecipe(Recipe recipe)
