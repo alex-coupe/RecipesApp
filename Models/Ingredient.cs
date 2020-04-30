@@ -16,6 +16,9 @@ namespace Backend.Models
         [Required]
         public string Quantity { get; set; }
 
+        [Required]
+        public int RecipeId { get; set; }
+
       
     }
 }

@@ -8,11 +8,12 @@ namespace Backend.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public virtual List<Ingredient> Ingredients { get; set; }
+        
 
         [DefaultValue(0)]
         public int Likes { get; set; }
+
+        public string Name { get; set; }
         
         [DefaultValue(0)]
         public int Comments { get; set; }
