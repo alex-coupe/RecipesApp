@@ -40,6 +40,8 @@ namespace Backend.Models
 
         [Required]
         public virtual List<Method> Instructions { get; set; }
+
+        public string Tags { get; set; }
         [Required]
         public virtual NutritionalInfo NutritionalInfo { get; set; }
     }

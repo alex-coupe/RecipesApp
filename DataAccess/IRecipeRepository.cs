@@ -10,7 +10,7 @@ namespace Backend.DataAccess
     {
         IEnumerable<Recipe> GetRecipes();
         Task<Recipe> GetRecipeAsync(int id);
-        Task<IEnumerable<Recipe>> GetRecipesAsync();
+        Task<IEnumerable<Recipe>> GetRecipesAsync(string search);
         void AddRecipe(Recipe recipe);
         void DeleteRecipe(int id);
         void EditRecipe(Recipe recipe);

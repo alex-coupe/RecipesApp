@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,19 @@ namespace Backend.DataAccess
             return recipes.ToList();
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesAsync()
+        public async Task<IEnumerable<Recipe>> GetRecipesAsync(string search)
         {
-
+            IQueryable<Recipe> filtered = null;
             var recipes = _context.Recipes.AsNoTracking()
                 .Include(i => i.NutritionalInfo)
                 .Include(i => i.Instructions)
                 .Include(i => i.Ingredients);
+            if (search != null)
+            {
+                filtered = recipes.Where(x => x.Tags.Contains(search));
+                return await filtered.ToListAsync();
+            }
+
             return await recipes.ToListAsync();
         }
 

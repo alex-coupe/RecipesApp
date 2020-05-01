@@ -22,9 +22,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes([FromQuery]string search)
         {
-            var recipes = await _repository.GetRecipesAsync();
+            var recipes = await _repository.GetRecipesAsync(search);
             return Ok(recipes);
         }
 
