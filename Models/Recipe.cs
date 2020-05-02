@@ -23,8 +23,6 @@ namespace Backend.Models
 
         public string Name { get; set; }
         
-        [DefaultValue(0)]
-        public int Comments { get; set; }
 
         [DefaultValue(0)]
         public int Favourites { get; set; }
@@ -44,5 +42,7 @@ namespace Backend.Models
         public string Tags { get; set; }
         [Required]
         public virtual NutritionalInfo NutritionalInfo { get; set; }
+
+        public virtual List<Comment> Comments { get; set; }
     }
 }

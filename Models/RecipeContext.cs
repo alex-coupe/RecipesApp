@@ -29,5 +29,7 @@ namespace Backend.Models
         public DbSet<NutritionalInfo> NutritionalInfos {get; set;}
 
         public DbSet<Method> Instructions { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        
     }
 }
