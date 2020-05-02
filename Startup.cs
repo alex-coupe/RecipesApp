@@ -35,7 +35,8 @@ namespace Backend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recipe API", Version = "v1" });
             });
-            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddTransient<IRecipeRepository, RecipeRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddControllers();
         }
            
