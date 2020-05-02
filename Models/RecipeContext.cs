@@ -18,8 +18,13 @@ namespace Backend.Models
             modelBuilder.Entity<Recipe>()
                 .HasMany(c => c.Instructions);
             modelBuilder.Entity<Recipe>()
+                .HasMany(c => c.Comments);
+            modelBuilder.Entity<Recipe>()
                 .HasOne(c => c.NutritionalInfo);
-                
+
+            modelBuilder.Entity<Recipe>()
+                .HasIndex(u => u.Slug)
+                .IsUnique();
         }
 
         public DbSet<Ingredient> Ingredients { get; set; }

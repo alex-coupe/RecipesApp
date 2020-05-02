@@ -18,9 +18,10 @@ namespace Backend.Models
         public int Serves { get; set; }
 
         public string Difficulty { get; set; }
-
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public string Name { get; set; }
         
 

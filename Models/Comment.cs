@@ -20,6 +20,9 @@ namespace Backend.Models
         [Required]
         public int RecipeId { get; set; }
 
+        [Required]
+        public string RecipeSlug { get; set; }
+
         public string? Author { get; set; }
     }
 }
