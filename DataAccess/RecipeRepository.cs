@@ -37,22 +37,14 @@ namespace Backend.DataAccess
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Recipe> GetRecipes()
-        {
-            var recipes = _context.Recipes.AsNoTracking()
-                .Include(i => i.NutritionalInfo)
-                .Include(i => i.Instructions)
-                .Include(i => i.Ingredients);
-            return recipes.ToList();
-        }
-
         public async Task<IEnumerable<Recipe>> GetRecipesAsync(string search)
         {
             IQueryable<Recipe> filtered = null;
             var recipes = _context.Recipes.AsNoTracking()
                 .Include(i => i.NutritionalInfo)
                 .Include(i => i.Instructions)
-                .Include(i => i.Ingredients);
+                .Include(i => i.Ingredients)
+                .Include(i => i.Comments);
             if (search != null)
             {
                 filtered = recipes.Where(x => x.Tags.Contains(search));
@@ -62,13 +54,14 @@ namespace Backend.DataAccess
             return await recipes.ToListAsync();
         }
 
-        public async Task<Recipe> GetRecipeAsync(int id)
+        public async Task<Recipe> GetRecipeAsync(string slug)
         {
             var recipe = await _context.Recipes.AsNoTracking()
                 .Include(i => i.NutritionalInfo)
                 .Include(i => i.Instructions)
                 .Include(i => i.Ingredients)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .Include(i => i.Comments)
+                .SingleOrDefaultAsync(x => x.Slug == slug);
 
             return recipe;    
         }

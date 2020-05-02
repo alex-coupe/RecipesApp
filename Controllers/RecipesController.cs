@@ -28,11 +28,11 @@ namespace Backend.Controllers
             return Ok(recipes);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{slug}")]
 
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public async Task<ActionResult<Recipe>> GetRecipe(string slug)
         {
-            var recipes = await _repository.GetRecipeAsync(id);
+            var recipes = await _repository.GetRecipeAsync(slug);
             return Ok(recipes);
         }
 

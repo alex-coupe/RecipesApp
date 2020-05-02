@@ -8,8 +8,7 @@ namespace Backend.DataAccess
 {
     public interface IRecipeRepository : IDisposable
     {
-        IEnumerable<Recipe> GetRecipes();
-        Task<Recipe> GetRecipeAsync(int id);
+        Task<Recipe> GetRecipeAsync(string slug);
         Task<IEnumerable<Recipe>> GetRecipesAsync(string search);
         void AddRecipe(Recipe recipe);
         void DeleteRecipe(int id);
