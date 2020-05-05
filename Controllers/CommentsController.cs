@@ -25,5 +25,18 @@ namespace Backend.Controllers
             var comments = await _repository.GetCommentsAsync(slug);
             return Ok(comments);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.AddComment(comment);
+                await _repository.SaveChangesAsync();
+
+                return CreatedAtAction("PostComment", new { id = comment.Id }, comment);
+            }
+            return BadRequest(ModelState);
+        }
     }
 }

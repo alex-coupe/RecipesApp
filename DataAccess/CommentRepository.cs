@@ -16,6 +16,12 @@ namespace Backend.DataAccess
         {
             _context = context;
         }
+
+        public void AddComment(Comment comment)
+        {
+            _context.Comments.Add(comment);
+        }
+
         public async Task<IEnumerable<Comment>> GetCommentsAsync(string slug)
         {
             var comments = await _context.Comments.AsNoTracking()
@@ -23,6 +29,12 @@ namespace Backend.DataAccess
                 .ToListAsync();
 
             return comments;
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _context.SaveChangesAsync();
+            
         }
     }
 }

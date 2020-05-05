@@ -13,7 +13,7 @@ namespace Backend.DataAccess
         void AddRecipe(Recipe recipe);
         void DeleteRecipe(int id);
         void EditRecipe(Recipe recipe);
-        void SaveChangesAsync();
+        Task<int> SaveChangesAsync();
         void SaveChanges();
     }
 }

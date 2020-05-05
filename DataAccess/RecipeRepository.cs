@@ -82,9 +82,9 @@ namespace Backend.DataAccess
             _context.Recipes.Remove(recipe);
         }
 
-        public void SaveChangesAsync()
+        public Task<int> SaveChangesAsync()
         {
-            _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
         public void SaveChanges()
