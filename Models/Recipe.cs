@@ -44,6 +44,6 @@ namespace Backend.Models
         [Required]
         public virtual NutritionalInfo NutritionalInfo { get; set; }
 
-        public virtual List<Comment> Comments { get; set; }
+       
     }
 }

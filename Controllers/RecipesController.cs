@@ -36,5 +36,30 @@ namespace Backend.Controllers
             return Ok(recipes);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.AddRecipe(recipe);
+              
+
+                foreach(var ingredient in recipe.Ingredients)
+                {
+                    ingredient.RecipeId = recipe.Id;
+                    _repository.AddIngredient(ingredient);
+                }
+
+                foreach(var instruction in recipe.Instructions)
+                {
+                    instruction.RecipeId = recipe.Id;
+                    _repository.AddInstruction(instruction);
+                }
+                await _repository.SaveChangesAsync();
+                return CreatedAtAction("PostRecipe", new { id = recipe.Id }, recipe);
+            }
+            return BadRequest(ModelState);
+        }
+
     }
 }

@@ -43,8 +43,7 @@ namespace Backend.DataAccess
             var recipes = _context.Recipes.AsNoTracking()
                 .Include(i => i.NutritionalInfo)
                 .Include(i => i.Instructions)
-                .Include(i => i.Ingredients)
-                .Include(i => i.Comments);
+                .Include(i => i.Ingredients);
             if (search != null)
             {
                 filtered = recipes.Where(x => x.Tags.Contains(search));
@@ -60,7 +59,6 @@ namespace Backend.DataAccess
                 .Include(i => i.NutritionalInfo)
                 .Include(i => i.Instructions)
                 .Include(i => i.Ingredients)
-                .Include(i => i.Comments)
                 .SingleOrDefaultAsync(x => x.Slug == slug);
 
             return recipe;    
@@ -90,6 +88,21 @@ namespace Backend.DataAccess
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public void AddIngredient(Ingredient ingredient)
+        {
+            _context.Ingredients.Add(ingredient);
+        }
+
+        public void AddInstruction(Method instruction)
+        {
+            _context.Instructions.Add(instruction);
+        }
+
+        public void AddNutritionalInfo(NutritionalInfo info)
+        {
+            _context.NutritionalInfos.Add(info);
         }
     }
 }
